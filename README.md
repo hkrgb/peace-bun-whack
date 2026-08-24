@@ -13,3 +13,7 @@ window.parent.postMessage({ complete: true, score }, '*');
 ```
 
 遊戲背景及透明平安包由 OpenAI 內置圖像生成工具製作；參考圖只用作美術方向。蛋撻以分層 CSS 繪製，避免外部圖片依賴。
+
+## 管理後台
+
+`admin.html` 使用 Firebase Google Authentication，只允許 `info@rgb-workshop.com`。後台可修改所有前台文字、難度、遊戲時間、目標分數、平安包加分、蛋撻扣分及出現率，設定發佈到 Firestore 後由前台直接讀取。
