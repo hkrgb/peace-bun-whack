@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-HK">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>平安包打地鼠</title><link rel="stylesheet" href="style.css"></head>
+<body>
+  <main id="game" class="game">
+    <img class="backdrop" src="assets/festival-board.png" alt="長洲太平清醮遊戲攤位">
+    <header class="hud">
+      <div class="brand"><small>CHEUNG CHAU FESTIVAL</small><h1>平安包<br><span>打地鼠</span></h1></div>
+      <div class="stats"><div><small>時間</small><b id="time">30</b></div><div><small>得分</small><b id="score">0</b></div><div><small>目標分數</small><b id="target">500</b></div></div>
+      <button id="pause" class="pause" type="button" aria-label="暫停">Ⅱ</button>
+    </header>
+    <aside class="help"><b>玩法說明</b><p>見到平安包就立即拍下！</p><span>普通包 <strong>+20</strong><br>金色包 <strong>+50</strong></span></aside>
+    <section id="holes" class="holes" aria-label="平安包遊戲板"></section>
+    <div id="mallet" class="mallet" aria-hidden="true"><i>平安</i></div>
+  </main>
+
+  <div id="startModal" class="modal"><div><small>BUN FESTIVAL CHALLENGE</small><h2>平安包打地鼠</h2><p>30 秒內拍中平安包，取得 500 分即可過關！</p><button id="start" type="button">開始遊戲 →</button></div></div>
+  <div id="pauseModal" class="modal hidden"><div><small>PAUSED</small><h2>遊戲暫停</h2><button id="resume" type="button">繼續遊戲 →</button></div></div>
+  <div id="finishModal" class="modal hidden"><div><small id="finishEyebrow">CHALLENGE COMPLETE</small><h2 id="finishTitle">挑戰成功！</h2><strong id="finalScore">500 分</strong><p id="finishText">平安分數已準備帶回主遊戲。</p><button id="finishAction" type="button">帶走分數 →</button></div></div>
+  <script src="game.js"></script>
+</body>
+</html>
