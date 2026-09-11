@@ -1,0 +1,20 @@
+// The fishing edition uses level rewards; standalone/story scoring remains available.
+const fishingParams=new URLSearchParams(location.search);
+const fishingSession=fishingParams.get('fishingSession'),fishingParentOrigin=fishingParams.get('parentOrigin');
+const fishingMode=parent!==window&&!!fishingSession&&/^https?:\/\//.test(fishingParentOrigin||'');
+let fishingRun='',fishingLevels=[],fishingPending=null;
+function configureFishingRewards(){
+ config.levels=config.levels.slice(0,3).map((l,i)=>({...l,reward:(i+1)*100}));
+ Object.assign(config.texts,{scoreLabel:'獎金',scoreUnit:'元',returnButton:'返回釣魚遊戲',returningButton:'正在保存獎金…',levelRewardText:'通關獲得 ${reward}，本次累積 ${score}。獎金會自動加入釣魚遊戲。',successText:'本次共獲得 ${score}，獎金已傳送到釣魚遊戲。',helpText:'打中平安包，避開蛋撻。初級通關 $100、中級 $200、高級 $300。',startText:'從初級開始挑戰，通過三關可累積 $600，帶回釣魚旅程！'});
+ queueMicrotask(()=>{const penalty=document.querySelector('#tartPenalty');if(penalty)penalty.textContent='命中 −1';const copy=document.querySelector('.game-menu-card p');if(copy)copy.textContent='已通關的獎金會存入釣魚遊戲；未完成的關卡不會發放獎金。';});
+}
+function reportFishingReward(done=false){
+ if(!fishingRun&&!done)return;
+ fishingPending={type:'coastline-bun-result',session:fishingSession,run:fishingRun||'exit',levels:[...fishingLevels],complete:!!done};
+ parent.postMessage(fishingPending,fishingParentOrigin);
+}
+addEventListener('message',e=>{
+ const d=e.data;if(!fishingMode||e.source!==parent||e.origin!==fishingParentOrigin||d?.type!=='coastline-bun-ack'||d.session!==fishingSession||d.run!==fishingPending?.run)return;
+ if(JSON.stringify(d.levels)===JSON.stringify(fishingPending.levels))fishingPending=null;
+});
+setInterval(()=>{if(fishingMode&&fishingPending)parent.postMessage(fishingPending,fishingParentOrigin);},1500);
