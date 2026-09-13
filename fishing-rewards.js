@@ -5,7 +5,7 @@ const fishingMode=parent!==window&&!!fishingSession&&/^https?:\/\//.test(fishing
 let fishingRun='',fishingLevels=[],fishingPending=null;
 function configureFishingRewards(){
  config.levels=config.levels.slice(0,3).map((l,i)=>({...l,reward:(i+1)*100}));
- Object.assign(config.texts,{scoreLabel:'獎金',scoreUnit:'元',returnButton:'返回釣魚遊戲',returningButton:'正在保存獎金…',levelRewardText:'通關獲得 ${reward}，本次累積 ${score}。獎金會自動加入釣魚遊戲。',successText:'本次共獲得 ${score}，獎金已傳送到釣魚遊戲。',helpText:'打中平安包，避開蛋撻。初級通關 $100、中級 $200、高級 $300。',startText:'從初級開始挑戰，通過三關可累積 $600，帶回釣魚旅程！'});
+ Object.assign(config.texts,{scoreLabel:'獎金',scoreUnit:'元',returnButton:'返回釣魚遊戲',returningButton:'正在保存獎金…',levelRewardText:'本關獎金 ${reward} · 共 ${score}。',successText:'三關完成！已獲得 ${score}，可以回去釣魚了。',helpText:'打平安包，避開蛋撻。過關獎金 $100／$200／$300。',startText:'打平安包，避開蛋撻。三關全過可獲得 $600！'});
  queueMicrotask(()=>{const penalty=document.querySelector('#tartPenalty');if(penalty)penalty.textContent='命中 −1';const copy=document.querySelector('.game-menu-card p');if(copy)copy.textContent='已通關的獎金會存入釣魚遊戲；未完成的關卡不會發放獎金。';});
 }
 function reportFishingReward(done=false){
